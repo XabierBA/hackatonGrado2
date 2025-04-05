@@ -1,4 +1,0 @@
-{
-    "paths": ["/media/{usuario}/{id_camara}",
-              "/run/media/{usuario}/{id_camara}"]
-}

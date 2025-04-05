@@ -5,16 +5,10 @@ from utils import write_log,obtener_dispositivos_conectados,verificar_numero_ser
 
 
 
-# Cargamos el archivo JSON que contiene las rutas
-with open('path.json','r') as file:
+# Cargamos el archivo JSON que contiene las configuraciones
+with open('config.json','r') as file:
     data = json.load(file)
 
-# Cargamos el archivo JSON con los id de cámaras
-with open('cam_id.json', 'r') as file:
-    cam_data = json.load(file)
-
-with open('accepted_serial.json', 'r') as file:
-    serial = json.load(file)
 
 usuario_actual = os.getenv("USER")
 
