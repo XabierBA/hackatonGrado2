@@ -2,7 +2,7 @@
     "paths": ["/media/{usuario}/{id_camara}",
                 "/run/media/{usuario}/{id_camara}"],
 
-    "serials": ["E0D55E6CE799E6A198501048","00.00.01"],
+    "serials": ["00.00.01"],
 
-    "source": ["/home/{usuario}/videos"]
+    "giroflowpath": [""]
 }

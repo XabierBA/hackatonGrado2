@@ -117,3 +117,255 @@ El archivo test.gcsv ya existe en la carpeta destino. No se copió.
 Se copiaron 1 archivos .mp4 y .csv a: /home/mrhoid/Repos/hackatonGrado2/videos 
 None 
 El dispositivo /dev/sdb está conectado, pero el número de serie no coincide. 
+None 
+El dispositivo /dev/sdb coincide con el número de serie E0D55E6CE799E6A198501048. 
+Ruta de la cámara: /run/media/mrhoid/ESD-USB 
+El archivo test.gcsv ya existe en la carpeta destino. No se copió. 
+Se copiaron 1 archivos .mp4 y .csv a: /home/mrhoid/Repos/hackatonGrado2/videos 
+None 
+El dispositivo /dev/sdb está conectado, pero el número de serie no coincide. 
+None 
+El dispositivo /dev/sdb coincide con el número de serie E0D55E6CE799E6A198501048. 
+Ruta de la cámara: /run/media/mrhoid/ESD-USB 
+El archivo test.gcsv ya existe en la carpeta destino. No se copió. 
+Se copiaron 1 archivos .mp4 y .csv a: /home/mrhoid/Repos/hackatonGrado2/videos 
+None 
+El dispositivo /dev/sdb está conectado, pero el número de serie no coincide. 
+None 
+No se encontraron dispositivos conectados. 
+No se encontraron dispositivos conectados. 
+No se encontraron dispositivos conectados. 
+No se encontraron dispositivos conectados. 
+No se encontraron dispositivos conectados. 
+No se encontraron dispositivos conectados. 
+El dispositivo /dev/sdb coincide con el número de serie E0D55E6CE799E6A198501048. 
+Ruta de la cámara: None 
+No se encontró una ruta válida para la cámara. 
+None 
+El dispositivo /dev/sdb coincide con el número de serie E0D55E6CE799E6A198501048. 
+Ruta de la cámara: None 
+No se encontró una ruta válida para la cámara. 
+None 
+El dispositivo /dev/sdb coincide con el número de serie E0D55E6CE799E6A198501048. 
+Ruta de la cámara: None 
+No se encontró una ruta válida para la cámara. 
+None 
+El dispositivo /dev/sdb coincide con el número de serie E0D55E6CE799E6A198501048. 
+Ruta de la cámara: None 
+No se encontró una ruta válida para la cámara. 
+None 
+El dispositivo /dev/sdb coincide con el número de serie E0D55E6CE799E6A198501048. 
+Ruta de la cámara: None 
+No se encontró una ruta válida para la cámara. 
+None 
+El dispositivo /dev/sdb coincide con el número de serie E0D55E6CE799E6A198501048. 
+Ruta de la cámara: None 
+No se encontró una ruta válida para la cámara. 
+None 
+El dispositivo /dev/sdb coincide con el número de serie E0D55E6CE799E6A198501048. 
+Ruta de la cámara: None 
+No se encontró una ruta válida para la cámara. 
+None 
+El dispositivo /dev/sdb coincide con el número de serie E0D55E6CE799E6A198501048. 
+Ruta de la cámara: /run/media/mrhoid/ESD-USB 
+Archivo test.gcsv copiado a /home/mrhoid/Repos/hackatonGrado2/videos/test.gcsv 
+Se copiaron 1 archivos .mp4 y .csv a: /home/mrhoid/Repos/hackatonGrado2/videos 
+None 
+El dispositivo /dev/sdb está conectado, pero el número de serie no coincide. 
+None 
+El dispositivo /dev/sdb coincide con el número de serie E0D55E6CE799E6A198501048. 
+Ruta de la cámara: /run/media/mrhoid/ESD-USB 
+El archivo test.gcsv ya existe en la carpeta destino. No se copió. 
+Se copiaron 1 archivos .mp4 y .csv a: /home/mrhoid/Repos/hackatonGrado2/videos 
+None 
+El dispositivo /dev/sdb está conectado, pero el número de serie no coincide. 
+None 
+El dispositivo /dev/sdb coincide con el número de serie E0D55E6CE799E6A198501048. 
+Ruta de la cámara: /run/media/mrhoid/ESD-USB 
+El archivo test.gcsv ya existe en la carpeta destino. No se copió. 
+Se copiaron 1 archivos .mp4 y .csv a: /home/mrhoid/Repos/hackatonGrado2/videos 
+None 
+El dispositivo /dev/sdb está conectado, pero el número de serie no coincide. 
+None 
+El dispositivo /dev/sdb coincide con el número de serie E0D55E6CE799E6A198501048. 
+Ruta de la cámara: /run/media/mrhoid/ESD-USB 
+El archivo test.gcsv ya existe en la carpeta destino. No se copió. 
+Se copiaron 1 archivos .mp4 y .csv a: /home/mrhoid/Repos/hackatonGrado2/videos 
+None 
+El dispositivo /dev/sdb está conectado, pero el número de serie no coincide. 
+None 
+El dispositivo /dev/sdb está conectado, pero el número de serie no coincide. 
+None 
+El dispositivo /dev/sdb está conectado, pero el número de serie no coincide. 
+None 
+El dispositivo /dev/sdb está conectado, pero el número de serie no coincide. 
+None 
+El dispositivo /dev/sdb está conectado, pero el número de serie no coincide. 
+None 
+El dispositivo /dev/sdb está conectado, pero el número de serie no coincide. 
+None 
+El dispositivo /dev/sdb está conectado, pero el número de serie no coincide. 
+None 
+El dispositivo /dev/sdb está conectado, pero el número de serie no coincide. 
+None 
+El dispositivo /dev/sdb está conectado, pero el número de serie no coincide. 
+None 
+El dispositivo /dev/sdb está conectado, pero el número de serie no coincide. 
+None 
+El dispositivo /dev/sdb está conectado, pero el número de serie no coincide. 
+None 
+El dispositivo /dev/sdb está conectado, pero el número de serie no coincide. 
+None 
+El dispositivo /dev/sdb está conectado, pero el número de serie no coincide. 
+None 
+El dispositivo /dev/sdb está conectado, pero el número de serie no coincide. 
+None 
+El dispositivo /dev/sdb está conectado, pero el número de serie no coincide. 
+None 
+El dispositivo /dev/sdb está conectado, pero el número de serie no coincide. 
+None 
+El dispositivo /dev/sdb está conectado, pero el número de serie no coincide. 
+None 
+El dispositivo /dev/sdb está conectado, pero el número de serie no coincide. 
+Ejecutando el script principal. 
+None 
+El dispositivo /dev/sdb está conectado, pero el número de serie no coincide. 
+None 
+El dispositivo /dev/sdb coincide con el número de serie 00.00.01. 
+Ruta de la cámara: /run/media/mrhoid/9C33-6BBD 
+Archivo Runcam6_0000.gcsv copiado a /home/mrhoid/Repos/hackatonGrado2/videos/Runcam6_0000.gcsv 
+Archivo Runcam6_0000.MP4 copiado a /home/mrhoid/Repos/hackatonGrado2/videos/Runcam6_0000.MP4 
+Archivo Runcam6_0001.gcsv copiado a /home/mrhoid/Repos/hackatonGrado2/videos/Runcam6_0001.gcsv 
+Archivo Runcam6_0001.MP4 copiado a /home/mrhoid/Repos/hackatonGrado2/videos/Runcam6_0001.MP4 
+Archivo Runcam6_0002.gcsv copiado a /home/mrhoid/Repos/hackatonGrado2/videos/Runcam6_0002.gcsv 
+Ejecutando el script principal. 
+None 
+El dispositivo /dev/sdb está conectado, pero el número de serie no coincide. 
+None 
+El dispositivo /dev/sdb coincide con el número de serie 00.00.01. 
+Ruta de la cámara: /run/media/mrhoid/9C33-6BBD 
+Archivo Runcam6_0000.gcsv copiado a /home/mrhoid/Repos/hackatonGrado2/videos/Runcam6_0000.gcsv 
+Archivo Runcam6_0000.MP4 copiado a /home/mrhoid/Repos/hackatonGrado2/videos/Runcam6_0000.MP4 
+Archivo Runcam6_0001.gcsv copiado a /home/mrhoid/Repos/hackatonGrado2/videos/Runcam6_0001.gcsv 
+Archivo Runcam6_0001.MP4 copiado a /home/mrhoid/Repos/hackatonGrado2/videos/Runcam6_0001.MP4 
+Archivo Runcam6_0002.gcsv copiado a /home/mrhoid/Repos/hackatonGrado2/videos/Runcam6_0002.gcsv 
+Ejecutando el script principal. 
+Ejecutando el script principal. 
+Ejecutando el script principal. 
+Ejecutando el script principal. 
+Ejecutando el script principal. 
+Ejecutando el script principal. 
+Ejecutando el script principal. 
+Ejecutando el script principal. 
+Ejecutando el script principal. 
+Ejecutando el script principal. 
+Ejecutando el script principal. 
+Ejecutando el script principal. 
+Ejecutando el script principal. 
+Ejecutando el script principal. 
+None 
+El dispositivo /dev/sdb coincide con el número de serie E0D55E6CE799E6A198501048. 
+Ruta de la cámara: /run/media/mrhoid/ESD-USB 
+El archivo test.gcsv ya existe en la carpeta destino. No se copió. 
+Se copiaron 1 archivos .mp4 y .csv a: /home/mrhoid/Repos/hackatonGrado2/videos 
+None 
+El dispositivo /dev/sdb está conectado, pero el número de serie no coincide. 
+None 
+El dispositivo /dev/sdb coincide con el número de serie E0D55E6CE799E6A198501048. 
+Ruta de la cámara: /run/media/mrhoid/ESD-USB 
+El archivo test.gcsv ya existe en la carpeta destino. No se copió. 
+Se copiaron 1 archivos .mp4 y .csv a: /home/mrhoid/Repos/hackatonGrado2/videos 
+None 
+El dispositivo /dev/sdb está conectado, pero el número de serie no coincide. 
+None 
+El dispositivo /dev/sdb coincide con el número de serie E0D55E6CE799E6A198501048. 
+Ruta de la cámara: /run/media/mrhoid/ESD-USB 
+El archivo test.gcsv ya existe en la carpeta destino. No se copió. 
+Se copiaron 1 archivos .mp4 y .csv a: /home/mrhoid/Repos/hackatonGrado2/videos 
+None 
+El dispositivo /dev/sdb está conectado, pero el número de serie no coincide. 
+None 
+No se encontraron dispositivos conectados. 
+No se encontraron dispositivos conectados. 
+No se encontraron dispositivos conectados. 
+No se encontraron dispositivos conectados. 
+No se encontraron dispositivos conectados. 
+No se encontraron dispositivos conectados. 
+No se encontraron dispositivos conectados. 
+No se encontraron dispositivos conectados. 
+No se encontraron dispositivos conectados. 
+No se encontraron dispositivos conectados. 
+No se encontraron dispositivos conectados. 
+No se encontraron dispositivos conectados. 
+No se encontraron dispositivos conectados. 
+No se encontraron dispositivos conectados. 
+No se encontraron dispositivos conectados. 
+No se encontraron dispositivos conectados. 
+No se encontraron dispositivos conectados. 
+No se encontraron dispositivos conectados. 
+No se encontraron dispositivos conectados. 
+No se encontraron dispositivos conectados. 
+No se encontraron dispositivos conectados. 
+No se encontraron dispositivos conectados. 
+No se encontraron dispositivos conectados. 
+No se encontraron dispositivos conectados. 
+No se encontraron dispositivos conectados. 
+No se encontraron dispositivos conectados. 
+No se encontraron dispositivos conectados. 
+No se encontraron dispositivos conectados. 
+No se encontraron dispositivos conectados. 
+No se encontraron dispositivos conectados. 
+No se encontraron dispositivos conectados. 
+No se encontraron dispositivos conectados. 
+No se encontraron dispositivos conectados. 
+No se encontraron dispositivos conectados. 
+No se encontraron dispositivos conectados. 
+No se encontraron dispositivos conectados. 
+No se encontraron dispositivos conectados. 
+Ejecutando el script principal. 
+None 
+No se encontraron dispositivos conectados. 
+No se encontraron dispositivos conectados. 
+No se encontraron dispositivos conectados. 
+No se encontraron dispositivos conectados. 
+El dispositivo /dev/sdb coincide con el número de serie E0D55E6CE799E6A198501048. 
+Ruta de la cámara: /run/media/mrhoid/ESD-USB 
+Ejecutando el script principal. 
+None 
+El dispositivo /dev/sdb coincide con el número de serie E0D55E6CE799E6A198501048. 
+Ruta de la cámara: /run/media/mrhoid/ESD-USB 
+Archivo test.gcsv copiado a /home/mrhoid/Repos/hackatonGrado2/videos/test.gcsv 
+Se copiaron 1 archivos .mp4 y .csv a: /home/mrhoid/Repos/hackatonGrado2/videos 
+None 
+El dispositivo /dev/sdb está conectado, pero el número de serie no coincide. 
+None 
+El dispositivo /dev/sdb coincide con el número de serie E0D55E6CE799E6A198501048. 
+Ruta de la cámara: /run/media/mrhoid/ESD-USB 
+El archivo test.gcsv ya existe en la carpeta destino. No se copió. 
+Se copiaron 1 archivos .mp4 y .csv a: /home/mrhoid/Repos/hackatonGrado2/videos 
+None 
+El dispositivo /dev/sdb está conectado, pero el número de serie no coincide. 
+None 
+No se encontraron dispositivos conectados. 
+No se encontraron dispositivos conectados. 
+No se encontraron dispositivos conectados. 
+No se encontraron dispositivos conectados. 
+No se encontraron dispositivos conectados. 
+No se encontraron dispositivos conectados. 
+No se encontraron dispositivos conectados. 
+No se encontraron dispositivos conectados. 
+No se encontraron dispositivos conectados. 
+No se encontraron dispositivos conectados. 
+No se encontraron dispositivos conectados. 
+No se encontraron dispositivos conectados. 
+Ejecutando el script principal. 
+None 
+No se encontraron dispositivos conectados. 
+No se encontraron dispositivos conectados. 
+No se encontraron dispositivos conectados. 
+El dispositivo /dev/sdb coincide con el número de serie E0D55E6CE799E6A198501048. 
+Ruta de la cámara: /run/media/mrhoid/ESD-USB 
+El archivo test.gcsv ya existe en la carpeta destino. No se copió. 
+Se copiaron 1 archivos .mp4 y .csv a: /home/mrhoid/Repos/hackatonGrado2/videos 
+None 
+El dispositivo /dev/sdb está conectado, pero el número de serie no coincide. 

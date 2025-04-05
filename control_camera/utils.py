@@ -7,6 +7,8 @@ import subprocess
 import json
 # Recorremos los json comprobando si la camara está conectada mediante el path
 
+
+#Esta funcion comprueba si el dispositivo está montado y en caso que no lo monta
 def check_cam_path(serial):
     try:
         # Buscar todos los dispositivos en /dev/disk/by-id/
@@ -25,7 +27,17 @@ def check_cam_path(serial):
                     if mountpoint:
                         return mountpoint
                     else:
-                        print(f"El dispositivo {device} no está montado.")
+                        #Si no está montado, lo monto
+                        subprocess.run(['udisksctl', 'mount', '-b', device])
+                        # Volver a intentar obtener el punto de montaje
+                        result = subprocess.run(['lsblk', '-no', 'MOUNTPOINT', device],
+                                                stdout=subprocess.PIPE, text=True)
+                        mountpoint = result.stdout.strip()
+                        if mountpoint:
+                            return mountpoint
+                        else:
+                            print(f"No se pudo montar el dispositivo {device}.")
+                            return None
                         
         return None
     except Exception as e:
@@ -47,6 +59,8 @@ def write_log(message):
         log.write(f"{message} \n")
         print(message)  # También puedes imprimir el mensaje en la consola si es necesario
 
+
+# Esta funcion copia los archivos de la camara a la carpeta de videos
 def copy_files(usuario_actual,serial, data):
     cam_path = check_cam_path(serial)
     write_log(f"Ruta de la cámara: {cam_path}")
@@ -58,6 +72,7 @@ def copy_files(usuario_actual,serial, data):
     dowload_path = os.path.join(cam_path, "DCIM")
 
     # Obtener la ruta del directorio actual del proyecto
+    
     project_dir = os.getcwd()  # Obtiene el directorio actual del proyecto
     videos_folder_path = os.path.join(project_dir, "videos")
     # Verificar si la carpeta ya existe, si no, crearla
@@ -66,8 +81,8 @@ def copy_files(usuario_actual,serial, data):
 
     if os.path.exists(dowload_path):
         try:
-            # Filtrar archivos .mp3 y .csv
-            files_to_copy = [f for f in os.listdir(dowload_path) if f.endswith(".MP4") or f.endswith(".gcsv")]
+            # Filtrar archivos .mp4 y .gcsv
+            files_to_copy = [f for f in os.listdir(dowload_path) if f.lower().endswith(".mp4") or f.lower().endswith(".gcsv")]
 
             if files_to_copy:
                 for file_name in files_to_copy:
@@ -91,7 +106,6 @@ def copy_files(usuario_actual,serial, data):
 
         except Exception as e:
             write_log(f"Error al copiar los archivos: {e}")
-            verificar_numero_serie(usuario_actual,  data)
 
     else:
         write_log("La carpeta de origen no existe.")
@@ -118,11 +132,11 @@ def obtener_dispositivos_conectados():
 
 # Esta funcion busca dispositivos en el sistema recibiendo la lista de estes de la funcion anterior con el objetivo de comparar los serial con los registrados como aceptados
 
-def verificar_numero_serie(usuario_actual,  data):
+def verificar_numero_serie(usuario_actual,data):
     sleep(5)
     with open('config.json', 'r') as file:
         serial = json.load(file)
-
+    
     serial_template = serial["serials"][0]
     devices = obtener_dispositivos_conectados()
 
@@ -147,17 +161,50 @@ def verificar_numero_serie(usuario_actual,  data):
             # Verificamos si el dispositivo tiene el atributo de número de serie
             if f'ATTRS{{serial}}' not in resultado:
                 write_log(f"No se encontró un dispositivo conectado en {dev_path}.")
-                verificar_numero_serie(usuario_actual,  data)
-                 
-                
-                
+                        
             elif f'ATTRS{{serial}}=="{serial_template}"' in resultado:
                 write_log(f"El dispositivo {dev_path} coincide con el número de serie {serial_template}.")
                 copy_files(usuario_actual,serial_template,data)
             else:
                 write_log(f"El dispositivo {dev_path} está conectado, pero el número de serie no coincide.")
-                verificar_numero_serie(usuario_actual,  data)
             
         except subprocess.CalledProcessError as e:
             write_log(f"Error al ejecutar el comando: {e}")
+
+# No funciona
+def stabilize_all_with_gyroflow(video_dir="videos", gyroflow_path=None):
+    # Buscar todos los archivos .mp4
+    if gyroflow_path is None:
+        project_dir = os.path.dirname(os.path.abspath(__file__))
+        gyroflow_path = os.path.join(project_dir, "giroflow", "Gyroflow.AppImage")
+    for filename in os.listdir(video_dir):
+        if filename.endswith(".MP4") and not filename.endswith("_stabilized.mp4"):
+            base_name = os.path.splitext(filename)[0]
+            video_path = os.path.join(video_dir, filename)
+            gyro_path = os.path.join(video_dir, f"{base_name}.gcsv")
+            output_path = os.path.join(video_dir, f"{base_name}_stabilized.mp4")
+
+            if not os.path.exists(gyro_path):
+                print(f"⚠️  No se encontró archivo .gcsv para {filename}, se omite.")
+                continue
+
+            if not os.path.exists(gyroflow_path):
+                print(f"❌ No se encontró Gyroflow en la ruta: {gyroflow_path}")
+                return
+
+            cmd = [
+                gyroflow_path,
+                "--video", video_path,
+                "--gyro-data", gyro_path,
+                "--export", output_path,
+                "--no-gui"
+            ]
+
+            print(f"🎬 Estabilizando {filename}...")
+            subprocess.run(cmd)
+
+            if os.path.exists(output_path):
+                print(f"✅ Estabilización completada: {output_path}")
+            else:
+                print(f"❌ Falló la estabilización de {filename}")
 
