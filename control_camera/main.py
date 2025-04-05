@@ -29,8 +29,14 @@ result = check_camera(usuario_actual, id_template, cam_data, data)
 # Definimos el archivo de log
 log_file = 'logs/check_camera_log.txt'
 
+# Determinamos el mensaje a registrar
+if result:
+    log_message = f"{timestamp} - OK: {result}\n"  # Si la función devuelve una ruta
+else:
+    log_message = f"{timestamp} - NOT FOUND\n"  # Si la función devuelve None
+
 # Escribimos el resultado con timestamp en el archivo de log
 with open(log_file, 'a') as log:
-    log.write(f"{timestamp} - {result}\n")
-    
+    log.write(log_message)
+
 print(result)  # También puedes imprimir el resultado en la consola si es necesario
