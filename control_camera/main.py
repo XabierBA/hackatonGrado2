@@ -1,5 +1,6 @@
 import os
 import json
+import shutil
 from utils import check_camera
 
 
@@ -19,12 +20,14 @@ id_template = cam_data["sup_cam"][0]
           
 print(check_camera(usuario_actual, id_template, cam_data, data))
 
+dowload_path = check_camera(usuario_actual, id_template, cam_data, data)
 
 
 
 
 
-# Ahora que tengo el nombre de usuario, procederé a crear la carpeta dentro de /home/ByCarlitag
+
+# Ahora que tengo el nombre de usuario, procederé a crear la carpeta dentro de /home/USER
 home_dir = os.path.expanduser(f"~{usuario_actual}")
 videos_folder_path = os.path.join(home_dir, "videos")
 
@@ -32,5 +35,17 @@ videos_folder_path = os.path.join(home_dir, "videos")
 if not os.path.exists(videos_folder_path):
     os.makedirs(videos_folder_path)
 
-videos_folder_path  # Devolvemos la ruta completa de la carpeta creada.
+
+
+
+if os.path.exists(dowload_path):
+    # Copiar todo el contenido (archivos y subcarpetas) de la carpeta de origen a la carpeta de destino
+    try:
+        # shutil.copytree() copia directorios completos
+        shutil.copytree(dowload_path, videos_folder_path)
+        print(f"Todo el contenido se ha copiado a: {videos_folder_path}")
+    except Exception as e:
+        print(f"Error al copiar los archivos: {e}")
+else:
+    print("La carpeta de origen no existe.")    
 
