@@ -25,17 +25,12 @@ dowload_path = check_camera(usuario_actual, id_template, cam_data, data)
 
 
 
-
-
-# Ahora que tengo el nombre de usuario, procederé a crear la carpeta dentro de /home/USER
-home_dir = os.path.expanduser(f"~{usuario_actual}")
-videos_folder_path = os.path.join(home_dir, "videos")
-
+# Obtener la ruta del directorio actual del proyecto
+project_dir = os.getcwd()  # Obtiene el directorio actual del proyecto
+videos_folder_path = os.path.join(project_dir, "videos")
 # Verificar si la carpeta ya existe, si no, crearla
 if not os.path.exists(videos_folder_path):
     os.makedirs(videos_folder_path)
-
-
 
 
 if os.path.exists(dowload_path):
