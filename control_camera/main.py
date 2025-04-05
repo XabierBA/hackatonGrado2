@@ -35,7 +35,7 @@ if not os.path.exists(videos_folder_path):
 if os.path.exists(dowload_path):
     try:
         # Filtrar archivos .mp3 y .csv
-        files_to_copy = [f for f in os.listdir(dowload_path) if f.endswith(".mp3") or f.endswith(".csv")]
+        files_to_copy = [f for f in os.listdir(dowload_path) if f.endswith(".mp3") or f.endswith(".gcsv")]
 
         if files_to_copy:
             for file_name in files_to_copy:
