@@ -4,6 +4,7 @@ from datetime import datetime
 import os
 import shutil
 import subprocess
+import json
 # Recorremos los json comprobando si la camara está conectada mediante el path
 
 def check_cam_path(usuario_actual, id_template, cam_data, data):
@@ -27,43 +28,26 @@ def write_log(message):
     # Escribimos el mensaje en el archivo de log
     with open(log_file, 'a') as log:
         log.write(f"{message} \n")
-
-
-def logger(usuario_actual, id_template, cam_data, data):
-    # Verificamos si la carpeta 'logs' existe, si no, la creamos
-    if not os.path.exists('logs'):
-        os.makedirs('logs')
-
-    flag = True
-    while flag:
-        # Obtenemos el timestamp actual
-        timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-
-        # Ejecutamos la función check_camera
-        result = check_cam_path(usuario_actual, id_template, cam_data, data)
-
-        # Definimos el archivo de log
-        log_file = 'logs/check_camera_log.txt'
-
-        # Determinamos el mensaje a registrar
-        if result:
-            flag = False
-            log_message = f"{timestamp} - OK: {result}\n"  # Si la función devuelve una ruta
-        else:
-            flag = True
-            log_message = f"{timestamp} - NON SUPPORTED CAMERA\n"  # Si la función devuelve None
-
-        # Escribimos el resultado con timestamp en el archivo de log
-        with open(log_file, 'a') as log:
-            log.write(log_message)
-
-        print(result)  # También puedes imprimir el resultado en la consola si es necesario
-        sleep(5)  # Espera 5 segundos antes de la siguiente verificación
-
+        print(message)  # También puedes imprimir el mensaje en la consola si es necesario
 
 def copy_files(usuario_actual, id_template, cam_data, data):
+    cam_path = check_cam_path(usuario_actual, id_template, cam_data, data)
+    
+    if not cam_path:
+        write_log("No se encontró una ruta válida para la cámara.")
+        
+        sleep(5)  # Espera 5 segundos antes de la siguiente verificación
+        with open('accepted_serial.json', 'r') as file:
+            serial = json.load(file)
+        serial_template = serial["serials"][0]
+        devices = obtener_dispositivos_conectados()
 
-    dowload_path = os.path.join(check_cam_path(usuario_actual, id_template, cam_data, data), "DCIM")
+        for serial_template in serial["serials"]:
+            write_log(print(f"Verificando el número de serie: {serial_template}"))
+            verificar_numero_serie(devices, serial_template, usuario_actual, id_template, cam_data, data)
+        
+
+    dowload_path = os.path.join(cam_path, "DCIM")
 
     # Obtener la ruta del directorio actual del proyecto
     project_dir = os.getcwd()  # Obtiene el directorio actual del proyecto
@@ -71,7 +55,6 @@ def copy_files(usuario_actual, id_template, cam_data, data):
     # Verificar si la carpeta ya existe, si no, crearla
     if not os.path.exists(videos_folder_path):
         os.makedirs(videos_folder_path)
-
 
     if os.path.exists(dowload_path):
         try:
@@ -86,23 +69,23 @@ def copy_files(usuario_actual, id_template, cam_data, data):
                     # Si el archivo no existe en la carpeta destino, lo copiamos
                     if not os.path.exists(dest_file):
                         shutil.copy2(src_file, dest_file)
-                        m = print(f"Archivo {file_name} copiado a {dest_file}")
-                        write_log(m)
+                        write_log(f"Archivo {file_name} copiado a {dest_file}")
+
                     else:
-                        m = print(f"El archivo {file_name} ya existe en la carpeta destino. No se copió.")
-                        write_log(m)
-                m = print(f"Se copiaron {len(files_to_copy)} archivos .mp4 y .csv a: {videos_folder_path}")
-                write_log(m)
+                        write_log(f"El archivo {file_name} ya existe en la carpeta destino. No se copió.")
+
+                write_log(f"Se copiaron {len(files_to_copy)} archivos .mp4 y .csv a: {videos_folder_path}")
+
 
             else:
-                m = print("No se encontraron archivos .mp3 o .csv en la carpeta de origen.")
-                write_log(m)
+                write_log("No se encontraron archivos .mp3 o .csv en la carpeta de origen.")
+
         except Exception as e:
-            m = print(f"Error al copiar los archivos: {e}")
-            write_log(m)
+            write_log(f"Error al copiar los archivos: {e}")
+
     else:
-        m = print("La carpeta de origen no existe.")
-        write_log(m)
+        write_log("La carpeta de origen no existe.")
+
 
 # Esta funcion lista los dispositivos conectados al sistema
 def obtener_dispositivos_conectados():
@@ -127,12 +110,10 @@ def obtener_dispositivos_conectados():
 def verificar_numero_serie(devices, numero_serie, usuario_actual, id_template, cam_data, data):
     
     flag = True
-    
     while flag:
         
         if not devices:
-            m = print("No se encontraron dispositivos conectados.")
-            write_log(m)
+            write_log("No se encontraron dispositivos conectados.")
             devices = obtener_dispositivos_conectados()
             sleep(5)  # Espera 5 segundos antes de la siguiente verificación
         else:
@@ -146,18 +127,16 @@ def verificar_numero_serie(devices, numero_serie, usuario_actual, id_template, c
         
         # Verificamos si el dispositivo tiene el atributo de número de serie
         if f'ATTRS{{serial}}' not in resultado:
-            m = print(f"No se encontró un dispositivo conectado en {dev_path}.")
-            write_log(m)
+            write_log(f"No se encontró un dispositivo conectado en {dev_path}.")
+            
         elif f'ATTRS{{serial}}=="{numero_serie}"' in resultado:
-            m = print(f"El dispositivo {dev_path} coincide con el número de serie {numero_serie}.")
-            write_log(m)
-            print(logger(usuario_actual, id_template, cam_data, data))
+            write_log(f"El dispositivo {dev_path} coincide con el número de serie {numero_serie}.")
             copy_files(usuario_actual, id_template, cam_data, data)
         else:
-            m = print(f"El dispositivo {dev_path} está conectado, pero el número de serie no coincide.")
-            write_log(m)
+            write_log(f"El dispositivo {dev_path} está conectado, pero el número de serie no coincide.")
+
         
     except subprocess.CalledProcessError as e:
-        m = print(f"Error al ejecutar el comando: {e}")
-        write_log(m)
+        write_log(f"Error al ejecutar el comando: {e}")
+        
    

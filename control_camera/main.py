@@ -1,6 +1,7 @@
 import os
 import json
-from utils import copy_files,obtener_dispositivos_conectados,verificar_numero_serie
+
+from utils import write_log,obtener_dispositivos_conectados,verificar_numero_serie
 
 
 
@@ -26,5 +27,6 @@ serial_template = serial["serials"][0]
 devices = obtener_dispositivos_conectados()
 
 for serial_template in serial["serials"]:
-    print(f"Verificando el número de serie: {serial_template}")
+    write_log(print(f"Verificando el número de serie: {serial_template}"))
     verificar_numero_serie(devices, serial_template, usuario_actual, id_template, cam_data, data)
+
