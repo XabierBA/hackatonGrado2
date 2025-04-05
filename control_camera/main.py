@@ -1,6 +1,7 @@
 import os
 import json
-from pathlib import Path
+from utils import check_camera
+
 
 # Cargamos el archivo JSON que contiene las rutas
 with open('path.json','r') as file:
@@ -14,12 +15,6 @@ usuario_actual = os.getenv("USER")
 
 ruta_template = data["paths"][0]
 
-for ruta_template in data["paths"]:
-    path = ruta_template.format(usuario=usuario_actual, id_camara=id_camara)
-
-    if Path(path).is_dir():
-        print(f"La ruta es válida: {path}")
-        break
-
-    else:
-        print("Ninguna ruta existe")
+id_template = cam_data["sup_cam"][0]
+          
+print(check_camera(usuario_actual, id_template, cam_data, data))
