@@ -18,3 +18,19 @@ ruta_template = data["paths"][0]
 id_template = cam_data["sup_cam"][0]
           
 print(check_camera(usuario_actual, id_template, cam_data, data))
+
+
+
+
+
+
+# Ahora que tengo el nombre de usuario, procederé a crear la carpeta dentro de /home/ByCarlitag
+home_dir = os.path.expanduser(f"~{usuario_actual}")
+videos_folder_path = os.path.join(home_dir, "videos")
+
+# Verificar si la carpeta ya existe, si no, crearla
+if not os.path.exists(videos_folder_path):
+    os.makedirs(videos_folder_path)
+
+videos_folder_path  # Devolvemos la ruta completa de la carpeta creada.
+
