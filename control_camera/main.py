@@ -2,6 +2,8 @@ import os
 import json
 from utils import check_camera
 from datetime import datetime
+from time import sleep
+
 
 # Cargamos el archivo JSON que contiene las rutas
 with open('path.json','r') as file:
@@ -20,23 +22,28 @@ id_template = cam_data["sup_cam"][0]
 if not os.path.exists('logs'):
     os.makedirs('logs')
 
-# Obtenemos el timestamp actual
-timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+flag = True
+while flag:
+    # Obtenemos el timestamp actual
+    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-# Ejecutamos la función check_camera
-result = check_camera(usuario_actual, id_template, cam_data, data)
+    # Ejecutamos la función check_camera
+    result = check_camera(usuario_actual, id_template, cam_data, data)
 
-# Definimos el archivo de log
-log_file = 'logs/check_camera_log.txt'
+    # Definimos el archivo de log
+    log_file = 'logs/check_camera_log.txt'
 
-# Determinamos el mensaje a registrar
-if result:
-    log_message = f"{timestamp} - OK: {result}\n"  # Si la función devuelve una ruta
-else:
-    log_message = f"{timestamp} - NOT FOUND\n"  # Si la función devuelve None
+    # Determinamos el mensaje a registrar
+    if result:
+        flag = False
+        log_message = f"{timestamp} - OK: {result}\n"  # Si la función devuelve una ruta
+    else:
+        flag = True
+        log_message = f"{timestamp} - NOT FOUND\n"  # Si la función devuelve None
 
-# Escribimos el resultado con timestamp en el archivo de log
-with open(log_file, 'a') as log:
-    log.write(log_message)
+    # Escribimos el resultado con timestamp en el archivo de log
+    with open(log_file, 'a') as log:
+        log.write(log_message)
 
-print(result)  # También puedes imprimir el resultado en la consola si es necesario
+    print(result)  # También puedes imprimir el resultado en la consola si es necesario
+    sleep(5)  # Espera 5 segundos antes de la siguiente verificación
