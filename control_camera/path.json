@@ -1,3 +1,3 @@
 {
-    "paths": ["/media/"]
+    "paths": ["/media/{usuario}/{id_camara}/DCIM"]
 }
