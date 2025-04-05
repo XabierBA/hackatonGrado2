@@ -1,6 +1,4 @@
 {
-    "sup_cam": ["ESD-USB", "9C33-6BBD"],
-
     "paths": ["/media/{usuario}/{id_camara}",
                 "/run/media/{usuario}/{id_camara}"],
 

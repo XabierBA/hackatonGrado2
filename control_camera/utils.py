@@ -7,14 +7,31 @@ import subprocess
 import json
 # Recorremos los json comprobando si la camara está conectada mediante el path
 
-def check_cam_path(usuario_actual, id_template, cam_data, data):
-    for id_template in cam_data["sup_cam"]:    
-        for ruta_template in data["paths"]:
+def check_cam_path(serial):
+    try:
+        # Buscar todos los dispositivos en /dev/disk/by-id/
+        by_id_path = "/dev/disk/by-id/"
+        for entry in os.listdir(by_id_path):
+            full_path = os.path.join(by_id_path, entry)
+            if os.path.islink(full_path):
+                if serial in entry:
+                    # Obtener el dispositivo real (resolviendo el symlink)
+                    device = os.path.realpath(full_path)
 
-            # Formateamos la ruta con el usuario y el id de cámara
-            path = ruta_template.format(usuario=usuario_actual, id_camara=id_template)
-            if Path(path).is_dir():
-                return path
+                    # Usar lsblk para obtener el punto de montaje
+                    result = subprocess.run(['lsblk', '-no', 'MOUNTPOINT', device],
+                                            stdout=subprocess.PIPE, text=True)
+                    mountpoint = result.stdout.strip()
+                    if mountpoint:
+                        return mountpoint
+                    else:
+                        print(f"El dispositivo {device} no está montado.")
+                        
+        return None
+    except Exception as e:
+        print(f"Error: {e}")
+        return None
+    
 
 # Esta función se encarga de escribir en el archivo de log cuando la llamemos desde otras funciones
 def write_log(message):
@@ -30,23 +47,14 @@ def write_log(message):
         log.write(f"{message} \n")
         print(message)  # También puedes imprimir el mensaje en la consola si es necesario
 
-def copy_files(usuario_actual, id_template, cam_data, data):
-    cam_path = check_cam_path(usuario_actual, id_template, cam_data, data)
-    
+def copy_files(usuario_actual,serial, data):
+    cam_path = check_cam_path(serial)
+    write_log(f"Ruta de la cámara: {cam_path}")
+
     if not cam_path:
         write_log("No se encontró una ruta válida para la cámara.")
+        verificar_numero_serie(usuario_actual, data)
         
-        sleep(5)  # Espera 5 segundos antes de la siguiente verificación
-        with open('accepted_serial.json', 'r') as file:
-            serial = json.load(file)
-        serial_template = serial["serials"][0]
-        devices = obtener_dispositivos_conectados()
-
-        for serial_template in serial["serials"]:
-            write_log(print(f"Verificando el número de serie: {serial_template}"))
-            verificar_numero_serie(devices, serial_template, usuario_actual, id_template, cam_data, data)
-        
-
     dowload_path = os.path.join(cam_path, "DCIM")
 
     # Obtener la ruta del directorio actual del proyecto
@@ -75,16 +83,19 @@ def copy_files(usuario_actual, id_template, cam_data, data):
                         write_log(f"El archivo {file_name} ya existe en la carpeta destino. No se copió.")
 
                 write_log(f"Se copiaron {len(files_to_copy)} archivos .mp4 y .csv a: {videos_folder_path}")
-
+                return False
 
             else:
-                write_log("No se encontraron archivos .mp3 o .csv en la carpeta de origen.")
+                write_log("No se encontraron archivos .mp4 o .gcsv en la carpeta de origen.")
+                verificar_numero_serie(usuario_actual,  data)
 
         except Exception as e:
             write_log(f"Error al copiar los archivos: {e}")
+            verificar_numero_serie(usuario_actual,  data)
 
     else:
         write_log("La carpeta de origen no existe.")
+        verificar_numero_serie(usuario_actual, data)
 
 
 # Esta funcion lista los dispositivos conectados al sistema
@@ -107,36 +118,46 @@ def obtener_dispositivos_conectados():
 
 # Esta funcion busca dispositivos en el sistema recibiendo la lista de estes de la funcion anterior con el objetivo de comparar los serial con los registrados como aceptados
 
-def verificar_numero_serie(devices, numero_serie, usuario_actual, id_template, cam_data, data):
-    
-    flag = True
-    while flag:
-        
-        if not devices:
-            write_log("No se encontraron dispositivos conectados.")
-            devices = obtener_dispositivos_conectados()
-            sleep(5)  # Espera 5 segundos antes de la siguiente verificación
-        else:
-            flag = False
-    for device in devices:
-        dev_path = f"/dev/{device}"
-    try:
-        # Ejecutamos el comando udevadm para obtener la información del dispositivo
-        comando = f"udevadm info -a -p $(udevadm info -q path -n {dev_path})"
-        resultado = subprocess.check_output(comando, shell=True, text=True)
-        
-        # Verificamos si el dispositivo tiene el atributo de número de serie
-        if f'ATTRS{{serial}}' not in resultado:
-            write_log(f"No se encontró un dispositivo conectado en {dev_path}.")
-            
-        elif f'ATTRS{{serial}}=="{numero_serie}"' in resultado:
-            write_log(f"El dispositivo {dev_path} coincide con el número de serie {numero_serie}.")
-            copy_files(usuario_actual, id_template, cam_data, data)
-        else:
-            write_log(f"El dispositivo {dev_path} está conectado, pero el número de serie no coincide.")
+def verificar_numero_serie(usuario_actual,  data):
+    sleep(5)
+    with open('config.json', 'r') as file:
+        serial = json.load(file)
 
-        
-    except subprocess.CalledProcessError as e:
-        write_log(f"Error al ejecutar el comando: {e}")
-        
-   
+    serial_template = serial["serials"][0]
+    devices = obtener_dispositivos_conectados()
+
+    for serial_template in serial["serials"]:
+        write_log(print(f"Verificando el número de serie: {serial_template}"))   
+        flag = True
+        while flag:
+            
+            if not devices:
+                write_log("No se encontraron dispositivos conectados.")
+                devices = obtener_dispositivos_conectados()
+                sleep(5)  # Espera 5 segundos antes de la siguiente verificación
+            else:
+                flag = False
+        for device in devices:
+            dev_path = f"/dev/{device}"
+        try:
+            # Ejecutamos el comando udevadm para obtener la información del dispositivo
+            comando = f"udevadm info -a -p $(udevadm info -q path -n {dev_path})"
+            resultado = subprocess.check_output(comando, shell=True, text=True)
+            
+            # Verificamos si el dispositivo tiene el atributo de número de serie
+            if f'ATTRS{{serial}}' not in resultado:
+                write_log(f"No se encontró un dispositivo conectado en {dev_path}.")
+                verificar_numero_serie(usuario_actual,  data)
+                 
+                
+                
+            elif f'ATTRS{{serial}}=="{serial_template}"' in resultado:
+                write_log(f"El dispositivo {dev_path} coincide con el número de serie {serial_template}.")
+                copy_files(usuario_actual,serial_template,data)
+            else:
+                write_log(f"El dispositivo {dev_path} está conectado, pero el número de serie no coincide.")
+                verificar_numero_serie(usuario_actual,  data)
+            
+        except subprocess.CalledProcessError as e:
+            write_log(f"Error al ejecutar el comando: {e}")
+
