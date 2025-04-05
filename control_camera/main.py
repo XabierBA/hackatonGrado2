@@ -20,8 +20,7 @@ id_template = cam_data["sup_cam"][0]
           
 print(check_camera(usuario_actual, id_template, cam_data, data))
 
-dowload_path = check_camera(usuario_actual, id_template, cam_data, data)
-
+dowload_path = os.path.join(check_camera(usuario_actual, id_template, cam_data, data), "DCIM")
 
 
 
@@ -34,13 +33,26 @@ if not os.path.exists(videos_folder_path):
 
 
 if os.path.exists(dowload_path):
-    # Copiar todo el contenido (archivos y subcarpetas) de la carpeta de origen a la carpeta de destino
     try:
-        # shutil.copytree() copia directorios completos
-        shutil.copytree(dowload_path, videos_folder_path)
-        print(f"Todo el contenido se ha copiado a: {videos_folder_path}")
+        # Filtrar archivos .mp3 y .csv
+        files_to_copy = [f for f in os.listdir(dowload_path) if f.endswith(".mp3") or f.endswith(".csv")]
+
+        if files_to_copy:
+            for file_name in files_to_copy:
+                src_file = os.path.join(dowload_path, file_name)
+                dest_file = os.path.join(videos_folder_path, file_name)
+                
+                # Si el archivo no existe en la carpeta destino, lo copiamos
+                if not os.path.exists(dest_file):
+                    shutil.copy2(src_file, dest_file)
+                    print(f"Archivo {file_name} copiado a {dest_file}")
+                else:
+                    print(f"El archivo {file_name} ya existe en la carpeta destino. No se copió.")
+            print(f"Se copiaron {len(files_to_copy)} archivos .mp3 y .csv a: {videos_folder_path}")
+        else:
+            print("No se encontraron archivos .mp3 o .csv en la carpeta de origen.")
     except Exception as e:
         print(f"Error al copiar los archivos: {e}")
 else:
-    print("La carpeta de origen no existe.")    
+    print("La carpeta de origen no existe.")
 
