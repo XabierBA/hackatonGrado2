@@ -1,6 +1,6 @@
 import os
 import json
-from utils import logger, copy_files
+from utils import logger, copy_files, verificar_numero_serie, obtener_dispositivos_conectados
 
 
 # Cargamos el archivo JSON que contiene las rutas
@@ -16,7 +16,12 @@ usuario_actual = os.getenv("USER")
 ruta_template = data["paths"][0]
 
 id_template = cam_data["sup_cam"][0]
-          
-print(logger(usuario_actual, id_template, cam_data, data))
 
-copy_files(usuario_actual, id_template, cam_data, data)
+
+numero_serie = "0415150000007433"  # Número de serie a comprobar
+devices = obtener_dispositivos_conectados()
+verificar_numero_serie(devices, numero_serie)
+
+          
+
+

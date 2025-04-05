@@ -3,6 +3,7 @@ from time import sleep
 from datetime import datetime
 import os
 import shutil
+import subprocess
 # Recorremos los json comprobando si la camara está conectada mediante el path
 
 def check_cam_path(usuario_actual, id_template, cam_data, data):
@@ -84,3 +85,29 @@ def copy_files(usuario_actual, id_template, cam_data, data):
     else:
         print("La carpeta de origen no existe.")
 
+def obtener_dispositivos_conectados():
+    # Listar todos los dispositivos en /dev/ que sean discos (e.g., /dev/sd*)
+    dispositivos = [f for f in os.listdir('/dev') if f.startswith('sd')]
+    return dispositivos
+
+
+def verificar_numero_serie(devices, numero_serie, usuario_actual, id_template, cam_data, data):
+    for device in devices:
+        dev_path = f"/dev/{device}"
+    try:
+        # Ejecutamos el comando udevadm para obtener la información del dispositivo
+        comando = f"udevadm info -a -p $(udevadm info -q path -n {dev_path})"
+        resultado = subprocess.check_output(comando, shell=True, text=True)
+        
+        # Verificamos si el dispositivo tiene el atributo de número de serie
+        if f'ATTRS{{serial}}' not in resultado:
+            print(f"No se encontró un dispositivo conectado en {dev_path}.")
+        elif f'ATTRS{{serial}}=="{numero_serie}"' in resultado:
+            print(f"El dispositivo {dev_path} coincide con el número de serie {numero_serie}.")
+            print(logger(usuario_actual, id_template, cam_data, data))
+            copy_files(usuario_actual, id_template, cam_data, data)
+        else:
+            print(f"El dispositivo {dev_path} está conectado, pero el número de serie no coincide.")
+    
+    except subprocess.CalledProcessError as e:
+        print(f"Error al ejecutar el comando: {e}")
